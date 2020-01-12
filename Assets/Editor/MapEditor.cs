@@ -7,10 +7,11 @@ using UnityEngine;
 public class MapEditor : Editor {
 
     public override void OnInspectorGUI () {
-        base.OnInspectorGUI ();
 
         MapGenerator map = target as MapGenerator;
-        map.GenerateMap ();
+        if (DrawDefaultInspector () || GUILayout.Button ("Generate Map")) {
+            map.GenerateMap ();
+        }
     }
 
 }
