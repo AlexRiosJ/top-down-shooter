@@ -24,7 +24,12 @@ public class MapGenerator : MonoBehaviour {
 
     Map currentMap;
 
-    void Start () {
+    void Awake () {
+        FindObjectOfType<Spawner> ().OnNewWave += OnNewWave;
+    }
+
+    void OnNewWave (int waveNumber) {
+        mapIndex = waveNumber - 1;
         GenerateMap ();
     }
 
@@ -83,8 +88,8 @@ public class MapGenerator : MonoBehaviour {
 
                 Renderer obstacleRenderer = newObstacle.GetComponent<Renderer> ();
                 Material obstacleMaterial = new Material (obstacleRenderer.sharedMaterial);
-                float colourPercent = randomCoord.y / (float) currentMap.mapSize.y;
-                obstacleMaterial.color = Color.Lerp (currentMap.foregroundColour, currentMap.backgroundColour, colourPercent);
+                float colorPercent = randomCoord.y / (float) currentMap.mapSize.y;
+                obstacleMaterial.color = Color.Lerp (currentMap.foregroundColor, currentMap.backgroundColor, colorPercent);
                 obstacleRenderer.sharedMaterial = obstacleMaterial;
                 allOpenCoords.Remove (randomCoord);
             } else {
@@ -151,8 +156,8 @@ public class MapGenerator : MonoBehaviour {
     }
 
     public Transform GetTileFromPosition (Vector3 position) {
-        int x = Mathf.RoundToInt (position.x / tileSize + (currentMap.mapSize.x - 1) / 2f);
-        int y = Mathf.RoundToInt (position.z / tileSize + (currentMap.mapSize.y - 1) / 2f);
+        int x = Mathf.CeilToInt (position.x / tileSize + (currentMap.mapSize.x - 1) / 2f);
+        int y = Mathf.CeilToInt (position.z / tileSize + (currentMap.mapSize.y - 1) / 2f);
 
         x = Mathf.Clamp (x, 0, tileMap.GetLength (0) - 1);
         y = Mathf.Clamp (y, 0, tileMap.GetLength (1) - 1);
@@ -198,8 +203,8 @@ public class MapGenerator : MonoBehaviour {
         public int seed;
         public float minObstacleHeight;
         public float maxObstacleHeight;
-        public Color foregroundColour;
-        public Color backgroundColour;
+        public Color foregroundColor;
+        public Color backgroundColor;
         public Coord mapCentre {
             get {
                 return new Coord (mapSize.x / 2, mapSize.y / 2);

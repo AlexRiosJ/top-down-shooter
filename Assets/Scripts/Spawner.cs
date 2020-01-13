@@ -27,6 +27,8 @@ public class Spawner : MonoBehaviour {
 
     bool isDisabled;
 
+    public event System.Action<int> OnNewWave;
+
     void Start () {
         playerEntity = FindObjectOfType<Player> ();
         playerT = playerEntity.transform;
@@ -65,16 +67,16 @@ public class Spawner : MonoBehaviour {
             spawnTile = map.GetTileFromPosition (playerT.position);
         }
         Material tileMat = spawnTile.GetComponent<Renderer> ().material;
-        Color originalColour = tileMat.color;
-        Color flashColour = Color.red;
+        Color originalColor = tileMat.color;
+        Color flashColor = Color.red;
         float spawnTimer = 0;
 
         while (spawnTimer < spawnDelay) {
-            tileMat.color = Color.Lerp (originalColour, flashColour, Mathf.PingPong (spawnTimer * tileFlashSpeed, 1));
+            tileMat.color = Color.Lerp (originalColor, flashColor, Mathf.PingPong (spawnTimer * tileFlashSpeed, 1));
             spawnTimer += Time.deltaTime;
             yield return null;
         }
-        
+
         Enemy spawnedEnemy = Instantiate (enemy, spawnTile.position + Vector3.up, Quaternion.identity) as Enemy;
         spawnedEnemy.OnDeath += OnEnemyDeath;
     }
@@ -90,6 +92,10 @@ public class Spawner : MonoBehaviour {
         }
     }
 
+    void ResetPlayerPosition () {
+        playerT.position = map.GetTileFromPosition (Vector3.zero).position + Vector3.up * 3;
+    }
+
     void NextWave () {
         currentWaveNumber++;
         if (currentWaveNumber - 1 < waves.Length) {
@@ -97,6 +103,11 @@ public class Spawner : MonoBehaviour {
 
             enemiesRemainingToSpaw = currentWave.enemyCount;
             enemiesRemainingAlive = enemiesRemainingToSpaw;
+
+            if (OnNewWave != null) {
+                OnNewWave (currentWaveNumber);
+            }
+            ResetPlayerPosition ();
         }
     }
 

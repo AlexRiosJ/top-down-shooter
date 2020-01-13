@@ -26,9 +26,10 @@ public class LivingEntity : MonoBehaviour, IDamagable {
         }
     }
 
+    [ContextMenu ("Self Destruct")]
     protected void Die () {
         dead = true;
-        if(OnDeath != null) {
+        if (OnDeath != null) {
             OnDeath ();
         }
         GameObject.Destroy (gameObject);
