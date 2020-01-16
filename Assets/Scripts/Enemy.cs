@@ -28,22 +28,25 @@ public class Enemy : LivingEntity {
 
     bool hasTarget;
 
-    protected override void Start () {
-        base.Start ();
+    void Awake () {
         pathfinder = GetComponent<NavMeshAgent> ();
-        skinMaterial = GetComponent<Renderer> ().material;
-        originalColor = skinMaterial.color;
 
         if (GameObject.FindGameObjectWithTag ("Player") != null) {
-            currentState = State.Chasing;
             hasTarget = true;
             target = GameObject.FindGameObjectWithTag ("Player").transform;
             targetEntity = target.GetComponent<LivingEntity> ();
-            targetEntity.OnDeath += OnTargetDeath;
 
             myCollisionRadius = GetComponent<CapsuleCollider> ().radius;
             targetCollisionRadius = target.GetComponent<CapsuleCollider> ().radius;
+        }
+    }
 
+    protected override void Start () {
+        base.Start ();
+
+        if (hasTarget) {
+            currentState = State.Chasing;
+            targetEntity.OnDeath += OnTargetDeath;
             StartCoroutine (UpdatePath ());
         }
     }
@@ -59,6 +62,18 @@ public class Enemy : LivingEntity {
         }
     }
 
+    public void SetCharacteristics (float moveSpeed, int hitsToKillPlayer, float enemyHealth, Color skinColor) {
+        pathfinder.speed = moveSpeed;
+
+        if (hasTarget) {
+            damage = Mathf.CeilToInt (targetEntity.startingHealth / hitsToKillPlayer);
+        }
+        startingHealth = enemyHealth;
+        skinMaterial = GetComponent<Renderer> ().material;
+        skinMaterial.color = skinColor;
+        originalColor = skinMaterial.color;
+    }
+
     public override void TakeHit (float damage, Vector3 hitPoint, Vector3 hitDirection) {
         if (damage >= health) {
             Destroy (Instantiate (deathEffect, hitPoint, Quaternion.FromToRotation (Vector3.forward, hitDirection)).gameObject as GameObject, deathEffect.main.startLifetime.constant);
@@ -69,6 +84,7 @@ public class Enemy : LivingEntity {
     void OnTargetDeath () {
         hasTarget = false;
         currentState = State.Idle;
+        Cursor.visible = true;
     }
 
     IEnumerator Attack () {

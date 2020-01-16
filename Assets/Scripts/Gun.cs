@@ -45,10 +45,14 @@ public class Gun : MonoBehaviour {
                 Projectile newProjectile = Instantiate (projectile, projectileSpawn[i].position, projectileSpawn[i].rotation) as Projectile;
                 newProjectile.SetSpeed (muzzleVelocity);
             }
-            
+
             Instantiate (shell, shellEjection.position, shellEjection.rotation);
             muzzleFlash.Activate ();
         }
+    }
+
+    public void Aim (Vector3 aimPoint) {
+        transform.LookAt (aimPoint);
     }
 
     public void OnTriggerHold () {
