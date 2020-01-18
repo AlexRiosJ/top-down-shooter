@@ -98,7 +98,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainTheme: {fileID: 8300000, guid: ede26fc9c1513e14cba1f106986a03b6, type: 3}
-  menuTheme: {fileID: 8300000, guid: 6861fed24f7bf034fb5a6bc133603302, type: 3}
+  menuTheme: {fileID: 8300000, guid: 90ffc4ce1f0d7f149bad4109f9813138, type: 3}
 --- !u!114 &1463985409731548786
 MonoBehaviour:
   m_ObjectHideFlags: 0

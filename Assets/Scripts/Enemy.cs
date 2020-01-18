@@ -68,7 +68,7 @@ public class Enemy : LivingEntity {
         pathfinder.speed = moveSpeed;
 
         if (hasTarget) {
-            damage = Mathf.CeilToInt (targetEntity.startingHealth / hitsToKillPlayer);
+            damage = (targetEntity.startingHealth / hitsToKillPlayer);
         }
         startingHealth = enemyHealth;
         ParticleSystem.MainModule mainDeathEffect = deathEffect.main;
