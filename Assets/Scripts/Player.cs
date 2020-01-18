@@ -16,9 +16,13 @@ public class Player : LivingEntity {
 
     protected override void Start () {
         base.Start ();
+    }
+
+    void Awake () {
         controller = GetComponent<PlayerController> ();
         gunController = GetComponent<GunController> ();
         viewCamera = Camera.main;
+        FindObjectOfType<Spawner> ().OnNewWave += OnNewWave;
     }
 
     void Update () {
@@ -52,5 +56,10 @@ public class Player : LivingEntity {
         if (Input.GetKeyDown (KeyCode.R)) {
             gunController.Reload ();
         }
+    }
+
+    void OnNewWave (int waveNumber) {
+        health = startingHealth;
+        gunController.EquipGun (waveNumber - 1);
     }
 }
