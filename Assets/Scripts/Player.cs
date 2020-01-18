@@ -62,4 +62,9 @@ public class Player : LivingEntity {
         health = startingHealth;
         gunController.EquipGun (waveNumber - 1);
     }
+
+    public override void Die () {
+        AudioManager.instance.PlaySound ("Player Death", transform.position);
+        base.Die ();
+    }
 }

@@ -60,7 +60,7 @@ public class Spawner : MonoBehaviour {
             }
         }
 
-        if (devMode && currentWaveNumber - 1 < waves.Length) {
+        if (devMode && currentWaveNumber < waves.Length) {
             if (Input.GetKeyDown (KeyCode.Return)) {
                 StopCoroutine ("SpawnEnemy");
                 foreach (Enemy enemy in FindObjectsOfType<Enemy> ()) {
@@ -110,6 +110,9 @@ public class Spawner : MonoBehaviour {
     }
 
     void NextWave () {
+        if (currentWaveNumber > 0) {
+            AudioManager.instance.PlaySound2D ("Level Complete");
+        }
         currentWaveNumber++;
         if (currentWaveNumber - 1 < waves.Length) {
             currentWave = waves[currentWaveNumber - 1];
