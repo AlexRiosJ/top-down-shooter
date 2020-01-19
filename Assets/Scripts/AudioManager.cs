@@ -74,6 +74,7 @@ public class AudioManager : MonoBehaviour {
                 break;
             case AudioChannel.Music:
                 musicVolumePercent = volumePercent;
+                musicSources[1 - activeMusicSourceIndex].Stop ();
                 break;
         }
 

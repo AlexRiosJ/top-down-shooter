@@ -17,7 +17,7 @@ public class MusicManager : MonoBehaviour {
         string newSceneName = SceneManager.GetActiveScene ().name;
         if (newSceneName != sceneName) {
             sceneName = newSceneName;
-            Invoke ("PlayMusic", 0.2f);
+            Invoke ("PlayMusic", 0.5f);
         }
     }
 
@@ -32,6 +32,7 @@ public class MusicManager : MonoBehaviour {
 
         if (clipToPlay != null) {
             AudioManager.instance.PlayMusic (clipToPlay, 2);
+            CancelInvoke("PlayMusic");
             Invoke ("PlayMusic", clipToPlay.length);
         }
     }
