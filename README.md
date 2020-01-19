@@ -10,6 +10,8 @@ Play here online: https://alexriosj.github.io/top-down-shooter
 
 Download here for Windows: https://bit.ly/30JF59D
 
+![Screenshot](./Screenshots/screenshot01.png)
+
 ## Features to add
 
 * Pause option.
