@@ -18,7 +18,7 @@ Download here for Windows: https://bit.ly/30JF59D
 * Variety in enemies.
 * More weapons that can be picked.
 * More UI elements (points multiplier, streak, ammo?).
-* Inifnite maps randomly generated.
+* Inifnite randomly generated maps.
 
 ## Known Issues and Bugs
 
