@@ -12,15 +12,14 @@ Download here for Windows: https://bit.ly/30JF59D
 
 ![Screenshot](./Screenshots/screenshot01.png)
 
-## Features to add
-
+## Feature content
 * Pause option.
 * Objects that can appear in the map (overshields, damage multiplier, points multiplier).
 * Variety in enemies.
 * More weapons that can be picked.
 * More UI elements (points multiplier, streak, ammo?).
 
-## Known Bugs
+## Known Issues and Bugs
 
 * Shooting while aiming really close to the player causes to start shooting to the sky due to the recoil animation.
 * Some times tiles do not highlight when enemies are spawning in the same place.
