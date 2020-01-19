@@ -12,7 +12,7 @@ Download here for Windows: https://bit.ly/30JF59D
 
 ![Screenshot](./Screenshots/screenshot01.png)
 
-## Feature content
+## Future features
 * Pause option.
 * Objects that can appear in the map (overshields, damage multiplier, points multiplier).
 * Variety in enemies.
