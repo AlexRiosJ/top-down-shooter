@@ -6,10 +6,10 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour {
 
     Vector3 velocity;
-    Rigidbody rigidbody;
+    Rigidbody playerRigidbody;
 
     void Start () {
-        rigidbody = GetComponent<Rigidbody> ();
+        playerRigidbody = GetComponent<Rigidbody> ();
     }
 
     public void Move (Vector3 _velocity) {
@@ -17,11 +17,11 @@ public class PlayerController : MonoBehaviour {
     }
 
     public void LookAt (Vector3 lookPoint) {
-        Vector3 heightCorrectedPoint = new Vector3(lookPoint.x, transform.position.y, lookPoint.z);
+        Vector3 heightCorrectedPoint = new Vector3 (lookPoint.x, transform.position.y, lookPoint.z);
         transform.LookAt (heightCorrectedPoint);
     }
 
     void FixedUpdate () {
-        rigidbody.MovePosition (rigidbody.position + velocity * Time.fixedDeltaTime);
+        playerRigidbody.MovePosition (playerRigidbody.position + velocity * Time.fixedDeltaTime);
     }
 }

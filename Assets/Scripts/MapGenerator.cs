@@ -195,6 +195,19 @@ public class MapGenerator : MonoBehaviour {
         public static bool operator != (Coord c1, Coord c2) {
             return !(c1 == c2);
         }
+
+        public bool Equals (Coord other) {
+            return x == other.x && y == other.y;
+        }
+
+        public override bool Equals (object obj) {
+            if (ReferenceEquals (null, obj)) return false;
+            return obj is Coord && Equals ((Coord) obj);
+        }
+
+        public override int GetHashCode () {
+            return -1;
+        }
     }
 
     [System.Serializable]
