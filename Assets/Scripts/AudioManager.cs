@@ -65,6 +65,8 @@ public class AudioManager : MonoBehaviour {
     }
 
     public void SetVolume (float volumePercent, AudioChannel channel) {
+        musicSources[1 - activeMusicSourceIndex].Stop ();
+        
         switch (channel) {
             case AudioChannel.Master:
                 masterVolumePercent = volumePercent;
@@ -74,7 +76,6 @@ public class AudioManager : MonoBehaviour {
                 break;
             case AudioChannel.Music:
                 musicVolumePercent = volumePercent;
-                musicSources[1 - activeMusicSourceIndex].Stop ();
                 break;
         }
 
